@@ -1,0 +1,4 @@
+main: 8048905
+flag: 80488b5
+syst(flag): 80488f7
+rip: 0xffffd08c

